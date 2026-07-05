@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\AdminDosenController;
+use App\Http\Controllers\AdminMataKuliahController;
+use App\Http\Controllers\AdminPertanyaanController;
+use App\Http\Controllers\MahasiswaEvaluasiController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -14,10 +18,39 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // 2. Route Admin (Hanya bisa diakses user dengan role admin)
-    Route::middleware(['role:admin'])->prefix('admin')->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-        // Tambahkan route admin lainnya di sini
-    });
+    Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+        Route::prefix('dosen')->name('dosen.')->group(function () {
+            Route::get('/', [AdminDosenController::class, 'index'])->name('index');
+            Route::get('/tambah', [AdminDosenController::class, 'create'])->name('create');
+            Route::post('/', [AdminDosenController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [AdminDosenController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [AdminDosenController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AdminDosenController::class, 'destroy'])->name('destroy');
+        });
+
+        // CRUD Mata Kuliah
+        Route::prefix('mata-kuliah')->name('mata_kuliah.')->group(function () {
+            Route::get('/', [AdminMataKuliahController::class, 'index'])->name('index');
+            Route::get('/tambah', [AdminMataKuliahController::class, 'create'])->name('create');
+            Route::post('/', [AdminMataKuliahController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [AdminMataKuliahController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [AdminMataKuliahController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AdminMataKuliahController::class, 'destroy'])->name('destroy');
+        });
+
+        // CRUD Pertanyaan Evaluasi
+        Route::prefix('pertanyaan')->name('pertanyaan.')->group(function () {
+            Route::get('/', [AdminPertanyaanController::class, 'index'])->name('index');
+            Route::get('/tambah', [AdminPertanyaanController::class, 'create'])->name('create');
+            Route::post('/', [AdminPertanyaanController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [AdminPertanyaanController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [AdminPertanyaanController::class, 'update'])->name('update');
+            Route::delete('/{id}', [AdminPertanyaanController::class, 'destroy'])->name('destroy');
+        });
+
+        });
 
     // 3. Route Dosen (Hanya bisa diakses user dengan role dosen)
     Route::middleware(['role:dosen'])->prefix('dosen')->group(function () {
@@ -28,7 +61,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // 4. Route Mahasiswa (Hanya bisa diakses user dengan role mahasiswa)
     Route::middleware(['role:mahasiswa'])->group(function () {
         Route::get('/dashboard', [MahasiswaController::class, 'index'])->name('dashboard');
-        // Tambahkan route mahasiswa lainnya di sini
+        Route::get('/panduan', [MahasiswaController::class, 'panduan'])->name('panduan');
+
+        Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+            Route::get('/dashboard', [MahasiswaEvaluasiController::class, 'index'])->name('dashboard');
+            Route::get('/panduan', function () { return view('mahasiswa.panduan'); })->name('panduan');
+            
+            // Route Evaluasi
+            Route::get('/evaluasi/{dosen_mk_id}', [MahasiswaEvaluasiController::class, 'show'])->name('evaluasi.show');
+            Route::post('/evaluasi/{dosen_mk_id}', [MahasiswaEvaluasiController::class, 'store'])->name('evaluasi.store');
+        });
     });
 
     // 5. Route Profil (Bisa diakses semua role yang sudah login)

@@ -22,14 +22,24 @@
                         <h1 class="text-xl font-bold">Politeknik Negeri Cilacap</h1>
                     </div>
                 </div>
-                <div class="flex items-center gap-6">
+                <div class="flex items-center gap-4">
                     <span class="font-bold text-lg">Tahun Akademik 2025/2026</span>
+                    <form method="POST" action="{{ route('logout') }}" class="ml-2">
+                        @csrf
+                        <button type="submit" class="rounded-lg border border-white/70 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white hover:text-[#004684]">
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </div>
             <nav class="mt-6 flex gap-6 text-sm font-medium">
                 <a href="{{ route('dashboard') }}"
                     class="flex items-center gap-1 hover:text-blue-200 transition {{ request()->routeIs('mahasiswa.dashboard') ? 'border-b-2 border-white pb-1' : '' }}">
                     Beranda
+                </a>
+                <a href="{{ route('panduan') }}"
+                    class="flex items-center gap-1 hover:text-blue-200 transition {{ request()->routeIs('mahasiswa.panduan') ? 'border-b-2 border-white pb-1' : '' }}">
+                    Panduan
                 </a>
             </nav>
         </div>

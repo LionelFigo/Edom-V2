@@ -1,8 +1,10 @@
-<x-app-layout>
-    <x-slot name="header"><h2>Dashboard Admin</h2></x-slot>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white p-6">Selamat datang, Admin {{ Auth::user()->name }}</div>
-        </div>
+@extends('layouts.admin')
+
+@section('title', 'Dashboard Admin')
+
+@section('content')
+    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">Selamat Datang, Administrator!</h2>
+        <p class="text-slate-600">Anda berada di halaman utama kendali sistem EDOM.</p>
     </div>
-</x-app-layout>
+@endsection
