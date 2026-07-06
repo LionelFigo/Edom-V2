@@ -106,7 +106,7 @@ class MahasiswaEvaluasiController extends Controller
                     $detailData[] = [
                         'evaluasi_id'   => $evaluasiId,
                         'pertanyaan_id' => $p_id,
-                        'skor'          => $skor
+                        'nilai'          => $skor
                     ];
                 }
             }

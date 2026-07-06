@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class AdminController extends Controller
+class AdminDashboardController extends Controller
 {
     public function index()
     {
-        
+        // 1. Hitung Statistik Utama
         $totalDosen = DB::table('dosen')->count();
         $evaluasiMasuk = DB::table('evaluasi')->count();
         
         $rataRataTotal = DB::table('detail_evaluasi')->avg('nilai');
         $rataRataTotal = $rataRataTotal ? number_format($rataRataTotal, 1) : '0.0';
 
-        
+        // 2. Dosen dengan Rata-rata Tertinggi (Top 5)
         if ($evaluasiMasuk > 0) {
             $topDosen = DB::table('dosen')
                 ->join('dosen_mata_kuliah', 'dosen.id', '=', 'dosen_mata_kuliah.dosen_id')
@@ -32,7 +32,7 @@ class AdminController extends Controller
                 ->limit(5)
                 ->get();
         } else {
-            
+            // Jika belum ada evaluasi, tampilkan dari tabel dosen saja (maksimal 5)
             $topDosen = DB::table('dosen')
                 ->select('nama_lengkap')
                 ->limit(5)
@@ -44,7 +44,7 @@ class AdminController extends Controller
                 });
         }
 
-        
+        // 3. Evaluasi Terbaru (Top 5)
         $evaluasiTerbaru = DB::table('evaluasi')
             ->join('dosen_mata_kuliah', 'evaluasi.dosen_mk_id', '=', 'dosen_mata_kuliah.id')
             ->join('dosen', 'dosen_mata_kuliah.dosen_id', '=', 'dosen.id')
@@ -54,13 +54,6 @@ class AdminController extends Controller
             ->limit(5)
             ->get();
 
-        
-        return view('admin.dashboard', compact(
-            'totalDosen', 
-            'evaluasiMasuk', 
-            'rataRataTotal', 
-            'topDosen', 
-            'evaluasiTerbaru'
-        ));
+        return view('admin.dashboard', compact('totalDosen', 'evaluasiMasuk', 'rataRataTotal', 'topDosen', 'evaluasiTerbaru'));
     }
 }

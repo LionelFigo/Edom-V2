@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto p-6 min-h-screen bg-gray-50">
+    @if(session('error'))
+        <div class="mb-6 p-4 bg-red-100 border border-red-300 text-red-700 rounded-md shadow-sm">
+            <strong>Terjadi Kesalahan:</strong> {{ session('error') }}
+        </div>
+    @endif
     
     <!-- Profil Dosen Card -->
     <div class="flex items-start gap-4 mb-8">

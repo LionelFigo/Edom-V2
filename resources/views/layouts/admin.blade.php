@@ -46,6 +46,10 @@
                     <span>Data Pertanyaan</span>
                 </a>
 
+                <a href="{{ route('admin.hasil.index') }}" class="flex items-center gap-3 p-3 text-slate-600 hover:bg-slate-50 transition {{ request()->routeIs('admin.hasil.index') ? 'active-menu' : '' }}">
+                    <span>Hasil Evaluasi</span>
+                </a>
+
                 <form action="{{ route('logout') }}" method="POST" class="mt-6 pt-4">
                     @csrf
                     <button type="submit" class="w-full flex items-center gap-3 p-3 bg-red-100 text-red-600 hover:bg-red-200 transition rounded border border-red-300 font-bold text-sm cursor-pointer">

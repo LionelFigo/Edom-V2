@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminDosenController;
 use App\Http\Controllers\AdminMataKuliahController;
 use App\Http\Controllers\AdminPertanyaanController;
 use App\Http\Controllers\MahasiswaEvaluasiController;
+use App\Http\Controllers\AdminHasilEvaluasiController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -48,6 +49,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/{id}/edit', [AdminPertanyaanController::class, 'edit'])->name('edit');
             Route::put('/{id}', [AdminPertanyaanController::class, 'update'])->name('update');
             Route::delete('/{id}', [AdminPertanyaanController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('hasil-evaluasi')->name('hasil.')->group(function () {
+            Route::get('/', [AdminHasilEvaluasiController::class, 'index'])->name('index');
+            Route::get('/{dosen_mk_id}', [AdminHasilEvaluasiController::class, 'show'])->name('show');
         });
 
         });
