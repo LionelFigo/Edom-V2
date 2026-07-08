@@ -36,7 +36,7 @@
                         <td class="py-3 px-4 text-sm text-center text-black">{{ $h->respon }}</td>
                         <td class="py-3 px-4 text-sm text-center font-bold text-green-600">{{ $h->rata_rata }}/4.0</td>
                         <td class="py-3 px-4 text-center">
-                            <a href="{{ route('hasil.show', $h->dosen_mk_id) }}" class="text-blue-500 hover:underline text-sm">Detail</a>
+                            <a href="{{ route('admin.hasil.show', $h->dosen_mk_id) }}" class="text-blue-500 hover:underline text-sm">Detail</a>
                         </td>
                     @else
                         <!-- Tampilan Jika Belum Ada Data -->

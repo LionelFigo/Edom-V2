@@ -30,11 +30,15 @@ class AdminDosenController extends Controller
 
         return view('admin.dosen.dosen', compact('dosens'));
     }
-    public function create()
+        public function create()
     {
-        // Pastikan nama tabel mata kuliah sesuai dengan di database Anda
+        // Mengambil data mata kuliah untuk form select multiple
         $matkuls = DB::table('mata_kuliah')->get();
-        return view('admin.dosen.tambah_dosen', compact('matkuls'));
+        
+        // Mengambil data prodi dari tabel prodi
+        $prodis = DB::table('prodi')->get(); 
+
+        return view('admin.dosen.tambah_dosen', compact('matkuls', 'prodis'));
     }
 
     public function store(Request $request)

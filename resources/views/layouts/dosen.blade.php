@@ -36,6 +36,14 @@
                     <span>Dashboard</span>
                 </a>
 
+                <a href="{{ route('dosen.evaluasi.index') }}" class="flex items-center gap-3 p-3 text-slate-600 hover:bg-slate-50 transition {{ request()->routeIs('dosen.evaluasi.index') ? 'active-menu' : '' }}">
+                    <span>Evaluasi</span>
+                </a>
+
+                <a href="{{ route('dosen.saran') }}" class="flex items-center gap-3 p-3 text-slate-600 hover:bg-slate-50 transition {{ request()->routeIs('dosen.saran') ? 'active-menu' : '' }}">
+                    <span>Saran dan Komentar</span>
+                </a>
+
                 <form action="{{ route('logout') }}" method="POST" class="mt-6 pt-4">
                     @csrf
                     <button type="submit" class="w-full flex items-center gap-3 p-3 bg-red-100 text-red-600 hover:bg-red-200 transition rounded border border-red-300 font-bold text-sm cursor-pointer">

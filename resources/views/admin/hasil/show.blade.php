@@ -3,7 +3,7 @@
 @section('content')
 <div class="p-8 bg-gray-50 min-h-screen">
     <div class="flex items-center gap-4 mb-8">
-        <a href="{{ route('hasil.index') }}" class="bg-[#004684] hover:bg-[#003366] text-white p-1.5 rounded transition">
+        <a href="{{ route('admin.hasil.index') }}" class="bg-[#004684] hover:bg-[#003366] text-white p-1.5 rounded transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>

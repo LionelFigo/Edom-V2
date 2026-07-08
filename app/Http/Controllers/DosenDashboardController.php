@@ -3,28 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; // Tambahkan ini
-use Illuminate\Support\Facades\Auth; // Tambahkan ini
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
-class DosenController extends Controller
+class DosenDashboardController extends Controller
 {
     public function index()
     {
         // 1. Ambil data dosen berdasarkan user yang sedang login
         $dosen = DB::table('dosen')->where('user_id', Auth::id())->first();
 
-        // Jika data dosen tidak ditemukan (mencegah error jika akun user belum ditautkan ke profil dosen)
+        // Jika data dosen tidak ditemukan (mencegah error)
         if (!$dosen) {
-            return view('dosen.dashboard', [
-                'dosen' => (object)['nama_lengkap' => Auth::user()->name],
-                'jumlahMk' => 0,
-                'responMahasiswa' => 0,
-                'rataRata' => '-',
-                'mkTerbaik' => null,
-                'aspekTerbaik' => null,
-                'aspekPerbaikan' => null,
-                'komentars' => []
-            ]);
+            abort(403, 'Data profil dosen tidak ditemukan.');
         }
 
         // 2. Cari ID relasi (Dosen & Mata Kuliah) milik dosen ini
@@ -93,7 +84,6 @@ class DosenController extends Controller
                 ->get();
         }
 
-        // 5. Kirim semua variabel ke view
         return view('dosen.dashboard', compact(
             'dosen', 'jumlahMk', 'responMahasiswa', 'rataRata', 
             'mkTerbaik', 'aspekTerbaik', 'aspekPerbaikan', 'komentars'

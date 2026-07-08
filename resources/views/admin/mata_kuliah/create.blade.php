@@ -45,7 +45,7 @@
         </div>
 
         <div class="flex gap-4 ml-[216px]">
-            <a href="{{ route('mata_kuliah.index') }}" class="px-6 py-2 border border-gray-300 text-black font-medium rounded hover:bg-gray-100 transition">Batal</a>
+            <a href="{{ route('admin.mata_kuliah.index') }}" class="px-6 py-2 border border-gray-300 text-black font-medium rounded hover:bg-gray-100 transition">Batal</a>
             <button type="submit" class="px-6 py-2 bg-[#007BFF] hover:bg-blue-600 text-white font-medium rounded transition">Simpan</button>
         </div>
     </form>

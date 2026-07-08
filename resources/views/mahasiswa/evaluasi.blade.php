@@ -8,7 +8,6 @@
         </div>
     @endif
     
-    <!-- Profil Dosen Card -->
     <div class="flex items-start gap-4 mb-8">
         <a href="{{ route('mahasiswa.dashboard') }}" class="bg-[#004684] text-white p-2 rounded hover:bg-[#003366] mt-1">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
@@ -38,7 +37,6 @@
         </div>
     </div>
 
-    <!-- Form Penilaian Berbasis Wizard -->
     <form id="formEvaluasi" action="{{ route('mahasiswa.evaluasi.store', $jadwal->dosen_mk_id) }}" method="POST">
         @csrf
         
@@ -47,7 +45,6 @@
             $totalKategori = count($kategoris);
         @endphp
 
-        <!-- 1. Looping Kategori Pertanyaan -->
         @foreach($kategoris as $index => $kategori)
         <div id="step-{{ $index + 1 }}" class="step-container" style="{{ $index === 0 ? 'display:block;' : 'display:none;' }}">
             <div class="mb-4">
@@ -75,7 +72,6 @@
                         <tr class="hover:bg-gray-50 row-pertanyaan">
                             <td class="py-3 px-4 text-sm text-center border-r border-gray-200">{{ $no++ }}</td>
                             <td class="py-3 px-4 text-sm text-black border-r border-gray-200">{{ $p->teks_pertanyaan }}</td>
-                            <!-- Hilangkan atribut required agar tidak berbenturan dengan hidden step browser -->
                             <td class="py-3 px-4 text-center border-r border-gray-200">
                                 <input type="radio" name="q_{{ $p->id }}" value="1" class="w-5 h-5 text-[#004684]">
                             </td>
@@ -94,7 +90,7 @@
                 </table>
             </div>
 
-            <!-- Tombol Navigasi Kategori -->
+            
             <div class="flex justify-end gap-4 mb-10">
                 @if($index === 0)
                     <a href="{{ route('mahasiswa.dashboard') }}" class="px-8 py-2 bg-white text-black font-bold border border-gray-300 rounded shadow-sm hover:bg-gray-50 transition">Batal</a>
@@ -110,7 +106,7 @@
         </div>
         @endforeach
 
-        <!-- 2. Halaman Terakhir: Saran dan Komentar -->
+        
         <div id="step-{{ $totalKategori + 1 }}" class="step-container" style="display:none;">
             <div class="mb-4">
                 <div class="flex items-center gap-3 mb-4">
@@ -121,7 +117,7 @@
                 <textarea name="saran_komentar" rows="6" class="w-full border border-gray-300 rounded-md p-4 focus:outline-none focus:border-[#004684]" placeholder="Tulis saran dan komentar Anda di sini..."></textarea>
             </div>
 
-            <!-- Tombol Submit Akhir -->
+            
             <div class="flex justify-end gap-4 mb-10">
                 <button type="button" onclick="prevStep()" class="px-8 py-2 bg-white text-black font-bold border border-gray-300 rounded shadow-sm hover:bg-gray-50 transition">Kembali</button>
                 <button type="submit" class="px-8 py-2 bg-[#007BFF] text-white font-bold rounded shadow-sm hover:bg-blue-600 transition flex items-center gap-2">
@@ -133,19 +129,16 @@
     </form>
 </div>
 
-<!-- Logika JavaScript untuk Pindah Halaman -->
+
 <script>
     let currentStep = 1;
     const totalSteps = {{ $totalKategori + 1 }};
 
     function showStep(step) {
-        // Sembunyikan semua step
         document.querySelectorAll('.step-container').forEach(el => {
             el.style.display = 'none';
         });
-        // Tampilkan step yang aktif
         document.getElementById('step-' + step).style.display = 'block';
-        // Scroll kembali ke atas dengan halus
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -154,12 +147,11 @@
         const rows = stepContainer.querySelectorAll('.row-pertanyaan');
         let allAnswered = true;
 
-        // Validasi: Cek setiap baris tabel pada step ini apakah sudah ada radio yang di-check
         rows.forEach(row => {
             const isChecked = row.querySelector('input[type="radio"]:checked');
             if (!isChecked) {
                 allAnswered = false;
-                row.classList.add('bg-red-50'); // Beri highlight merah pada baris yang belum diisi
+                row.classList.add('bg-red-50');
             } else {
                 row.classList.remove('bg-red-50');
             }
@@ -170,7 +162,6 @@
             return;
         }
 
-        // Pindah ke halaman selanjutnya
         if (currentStep < totalSteps) {
             currentStep++;
             showStep(currentStep);
