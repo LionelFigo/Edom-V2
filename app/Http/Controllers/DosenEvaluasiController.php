@@ -8,13 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class DosenEvaluasiController extends Controller
 {
-    // Menampilkan Daftar Mata Kuliah yang Dievaluasi
     public function index()
     {
         $dosen = DB::table('dosen')->where('user_id', Auth::id())->first();
         if (!$dosen) abort(403, 'Profil dosen tidak ditemukan.');
 
-        // Hanya ambil mata kuliah yang diajar oleh dosen ini
         $mataKuliahs = DB::table('dosen_mata_kuliah')
             ->join('mata_kuliah', 'dosen_mata_kuliah.mk_id', '=', 'mata_kuliah.id')
             ->where('dosen_mata_kuliah.dosen_id', $dosen->id)
@@ -35,13 +33,11 @@ class DosenEvaluasiController extends Controller
         return view('dosen.evaluasi.index', compact('mataKuliahs'));
     }
 
-    // Menampilkan Detail Evaluasi Per Mata Kuliah
     public function show($dosen_mk_id)
     {
         $dosen = DB::table('dosen')->where('user_id', Auth::id())->first();
         if (!$dosen) abort(403);
 
-        // Verifikasi kepemilikan: Pastikan jadwal ini benar-benar milik dosen yang login
         $jadwal = DB::table('dosen_mata_kuliah')
             ->join('mata_kuliah', 'dosen_mata_kuliah.mk_id', '=', 'mata_kuliah.id')
             ->where('dosen_mata_kuliah.id', $dosen_mk_id)
@@ -54,10 +50,8 @@ class DosenEvaluasiController extends Controller
         $evaluasiIds = DB::table('evaluasi')->where('dosen_mk_id', $dosen_mk_id)->pluck('id');
         $totalRespon = $evaluasiIds->count();
 
-        // Deklarasi awal
         $rataRataKeseluruhan = '-';
         
-        // 1. Jika ADA data evaluasi
         if ($totalRespon > 0) {
             $avg = DB::table('detail_evaluasi')->whereIn('evaluasi_id', $evaluasiIds)->avg('nilai');
             $rataRataKeseluruhan = number_format($avg, 1) . '/4.0';
@@ -77,7 +71,6 @@ class DosenEvaluasiController extends Controller
                 ->groupBy('pertanyaan.id', 'pertanyaan.teks_pertanyaan')
                 ->get();
         } 
-        // 2. Jika BELUM ADA data (Kosong) -> Tetap tampilkan kategori & pertanyaan dengan nilai null
         else {
             $kategoriScores = DB::table('kategori_pertanyaan')
                 ->select('nama_kategori', DB::raw('null as rata_rata'))

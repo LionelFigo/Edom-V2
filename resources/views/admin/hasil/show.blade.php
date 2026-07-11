@@ -14,7 +14,6 @@
         </div>
     </div>
 
-    <!-- Ringkasan Kategori -->
     <div class="bg-white border border-gray-200 rounded-lg p-6 mb-8 shadow-sm">
         <h3 class="text-[#004684] font-bold mb-4">Ringkasan Nilai Per Kategori</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -27,7 +26,6 @@
         </div>
     </div>
 
-    <!-- Tabel Penilaian Tiap Pertanyaan -->
     <div class="bg-white border border-gray-200 rounded-lg mb-8 shadow-sm overflow-hidden">
         <div class="p-4 border-b border-gray-200">
             <h3 class="text-[#004684] font-bold">Penilaian Tiap Pertanyaan</h3>
@@ -52,7 +50,6 @@
         </table>
     </div>
 
-    <!-- Saran dan Komentar Mahasiswa -->
     <div class="mb-8">
         <h2 class="text-xl font-bold text-black mb-4">Saran dan Komentar Mahasiswa</h2>
         
@@ -61,7 +58,6 @@
             <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
                 <div class="flex justify-between items-start mb-2">
                     <div>
-                        <!-- Ditampilkan Anonymous untuk menjaga kerahasiaan -->
                         <h4 class="font-bold text-[#004684]">Anonymous</h4>
                         <p class="text-xs text-gray-500">{{ $info->kode_mk }} - {{ $info->nama_mk }}</p>
                     </div>

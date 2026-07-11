@@ -12,10 +12,8 @@
         </div>
     </div>
 
-    <!-- Grid Panduan -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         
-        <!-- Card 1 -->
         <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
             <div class="w-14 h-14 bg-[#004684] text-white rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,7 +24,6 @@
             <p class="text-sm text-gray-600 leading-relaxed">EDOM (Evaluasi Dosen Oleh Mahasiswa) adalah sistem penilaian yang dilakukan oleh mahasiswa untuk mengevaluasi kinerja dosen dalam proses pembelajaran selama satu semester. Hasil evaluasi digunakan sebagai bahan perbaikan dan peningkatan mutu pembelajaran.</p>
         </div>
 
-        <!-- Card 2 -->
         <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
             <div class="w-14 h-14 bg-[#004684] text-white rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -37,7 +34,6 @@
             <p class="text-sm text-gray-600 leading-relaxed">Pengisian EDOM dilakukan pada akhir semester setelah perkuliahan selesai dan sebelum pelaksanaan Ujian Akhir Semester (UAS). Periode pengisian biasanya dibuka selama 2-3 minggu sesuai dengan kalender akademik.</p>
         </div>
 
-        <!-- Card 3 -->
         <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
             <div class="w-14 h-14 bg-[#004684] text-white rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,7 +44,6 @@
             <p class="text-sm text-gray-600 leading-relaxed">Partisipasi mahasiswa dalam pengisian EDOM sangat penting untuk meningkatkan kualitas pembelajaran. Masukan yang diberikan akan digunakan sebagai bahan evaluasi dan pengembangan metode pengajaran dosen di semester berikutnya.</p>
         </div>
 
-        <!-- Card 4 -->
         <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
             <div class="w-14 h-14 bg-[#004684] text-white rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,7 +54,6 @@
             <p class="text-sm text-gray-600 leading-relaxed">Mahasiswa memilih mata kuliah yang tersedia pada Beranda, kemudian memberikan penilaian terhadap dosen pengajar berdasarkan beberapa aspek pembelajaran. Setiap pertanyaan memiliki skala penilaian dari 1 hingga 5.</p>
         </div>
 
-        <!-- Card 5 -->
         <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
             <div class="w-14 h-14 bg-[#004684] text-white rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,7 +64,6 @@
             <p class="text-sm text-gray-600 leading-relaxed">Setiap mahasiswa diwajibkan mengisi evaluasi untuk seluruh mata kuliah yang diambil pada semester berjalan. Evaluasi hanya dapat diisi satu kali untuk setiap mata kuliah.</p>
         </div>
 
-        <!-- Card 6 -->
         <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
             <div class="w-14 h-14 bg-[#004684] text-white rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

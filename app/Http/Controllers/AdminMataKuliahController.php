@@ -9,7 +9,6 @@ class AdminMataKuliahController extends Controller
 {
     public function index()
     {
-        // Menggunakan LEFT JOIN agar data lama yang prodi_id-nya NULL tetap tampil
         $mataKuliah = DB::table('mata_kuliah')
             ->leftJoin('prodi', 'mata_kuliah.prodi_id', '=', 'prodi.id')
             ->select('mata_kuliah.*', 'prodi.nama_prodi')
@@ -38,8 +37,6 @@ class AdminMataKuliahController extends Controller
             'nama_mk'  => $request->nama_mk,
             'prodi_id' => $request->prodi_id,
             'semester' => $request->semester,
-            // Jika Anda ingin tetap mengisi kolom 'prodi' dengan teks agar aman:
-            // 'prodi'    => DB::table('prodi')->where('id', $request->prodi_id)->value('nama_prodi'),
         ]);
 
         return redirect()->route('admin.mata_kuliah.index')->with('success', 'Data Mata Kuliah berhasil ditambahkan.');
@@ -47,12 +44,17 @@ class AdminMataKuliahController extends Controller
 
     public function edit($id)
     {
+    
         $mataKuliah = DB::table('mata_kuliah')->where('id', $id)->first();
-        $prodi = DB::table('prodi')->get();
         
-        return view('admin.mata_kuliah.edit', compact('mataKuliah', 'prodi'));
-    }
+        if (!$mataKuliah) {
+            abort(404);
+        }
 
+        $prodis = DB::table('prodi')->get();
+
+        return view('admin.mata_kuliah.edit', compact('mataKuliah', 'prodis'));
+    }
     public function update(Request $request, $id)
     {
         $request->validate([

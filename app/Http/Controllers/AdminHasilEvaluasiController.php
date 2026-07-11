@@ -10,7 +10,6 @@ class AdminHasilEvaluasiController extends Controller
 {
     public function index()
     {
-        // Ambil semua pasangan Dosen dan Mata Kuliah
         $hasils = DB::table('dosen_mata_kuliah')
             ->join('dosen', 'dosen_mata_kuliah.dosen_id', '=', 'dosen.id')
             ->join('mata_kuliah', 'dosen_mata_kuliah.mk_id', '=', 'mata_kuliah.id')
@@ -22,13 +21,11 @@ class AdminHasilEvaluasiController extends Controller
             )
             ->get();
 
-        // Hitung respon dan rata-rata untuk masing-masing baris
         foreach ($hasils as $h) {
             $evaluasiIds = DB::table('evaluasi')->where('dosen_mk_id', $h->dosen_mk_id)->pluck('id');
             $h->respon = $evaluasiIds->count();
 
             if ($h->respon > 0) {
-                // Hitung rata-rata nilai dari detail_evaluasi
                 $avg = DB::table('detail_evaluasi')->whereIn('evaluasi_id', $evaluasiIds)->avg('nilai');
                 $h->rata_rata = number_format($avg, 1);
             } else {
@@ -41,7 +38,6 @@ class AdminHasilEvaluasiController extends Controller
 
     public function show($dosen_mk_id)
     {
-        // 1. Ambil Info Dosen & MK
         $info = DB::table('dosen_mata_kuliah')
             ->join('dosen', 'dosen_mata_kuliah.dosen_id', '=', 'dosen.id')
             ->join('mata_kuliah', 'dosen_mata_kuliah.mk_id', '=', 'mata_kuliah.id')
@@ -53,12 +49,10 @@ class AdminHasilEvaluasiController extends Controller
 
         $evaluasiIds = DB::table('evaluasi')->where('dosen_mk_id', $dosen_mk_id)->pluck('id');
 
-        // Jika belum ada yang mengisi, kembalikan ke index
         if ($evaluasiIds->isEmpty()) {
             return redirect()->route('admin.hasil.index')->with('error', 'Belum ada data evaluasi untuk kelas ini.');
         }
 
-        // 2. Hitung Rata-rata Per Kategori
         $kategoriScores = DB::table('detail_evaluasi')
             ->join('pertanyaan', 'detail_evaluasi.pertanyaan_id', '=', 'pertanyaan.id')
             ->join('kategori_pertanyaan', 'pertanyaan.kategori_id', '=', 'kategori_pertanyaan.id')
@@ -67,7 +61,6 @@ class AdminHasilEvaluasiController extends Controller
             ->groupBy('kategori_pertanyaan.id', 'kategori_pertanyaan.nama_kategori')
             ->get();
 
-        // 3. Hitung Rata-rata Per Pertanyaan
         $pertanyaanScores = DB::table('detail_evaluasi')
             ->join('pertanyaan', 'detail_evaluasi.pertanyaan_id', '=', 'pertanyaan.id')
             ->whereIn('detail_evaluasi.evaluasi_id', $evaluasiIds)
@@ -75,7 +68,6 @@ class AdminHasilEvaluasiController extends Controller
             ->groupBy('pertanyaan.id', 'pertanyaan.teks_pertanyaan')
             ->get();
 
-        // 4. Ambil Saran dan Komentar (Ditampilkan sebagai Anonymous untuk menjaga kerahasiaan)
         $komentars = DB::table('evaluasi')
             ->where('dosen_mk_id', $dosen_mk_id)
             ->whereNotNull('saran_komentar')

@@ -13,7 +13,6 @@
 </head>
 <body class="bg-[#F8FAFC]">
 
-    <!-- Header -->
     <header class="bg-[#004684] text-white p-4 flex justify-between items-center fixed w-full top-0 z-50 shadow-md">
         <div class="flex items-center gap-3">
             <img src="{{ asset('asset/logo_pnc.png') }}" class="h-12 bg-white rounded-full p-1" alt="Logo PNC">
@@ -53,7 +52,6 @@
             </nav>
         </aside>
 
-        <!-- Main Content -->
         <main class="flex-1 ml-64 p-8">
             @yield('content')
         </main>

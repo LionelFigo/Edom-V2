@@ -26,13 +26,16 @@
         </div>
 
         <div class="grid grid-cols-[200px_1fr] items-center gap-4 mb-4">
-            <label class="font-medium text-black">Program Studi :</label>
-            <select name="prodi_id" required class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-[#004684] bg-white appearance-none">
-                @foreach ($prodi as $p)
-                    <option value="{{ $p->id }}" {{ $mataKuliah->prodi_id == $p->id ? 'selected' : '' }}>
+            <label for="prodi_id" class="font-medium text-black">Program Studi :</label>
+            <select name="prodi_id" id="prodi_id" class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-[#004684] bg-white" required>
+                <option value="" disabled>Pilih Prodi</option>
+                
+                @foreach ($prodis as $p)
+                    <option value="{{ $p->id }}" {{ old('prodi_id', $mataKuliah->prodi_id) == $p->id ? 'selected' : '' }}>
                         {{ $p->nama_prodi }}
                     </option>
                 @endforeach
+                
             </select>
         </div>
 

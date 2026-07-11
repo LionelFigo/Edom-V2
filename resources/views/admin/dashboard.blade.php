@@ -3,7 +3,6 @@
 @section('content')
 <div class="max-w-7xl mx-auto p-4 min-h-screen bg-[#F8FAFC]">
     
-    <!-- Header Card -->
     <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 mb-6">
         <h2 class="text-2xl font-bold text-black mb-2">Dashboard Admin</h2>
         <p class="text-gray-600 text-sm mb-4">Evaluasi Dosen untuk semester ini</p>
@@ -16,9 +15,7 @@
         </div>
     </div>
 
-    <!-- Statistik Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <!-- Card Total Dosen -->
         <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex items-start gap-4">
             <div class="p-3 bg-blue-50 rounded-lg text-[#004684]">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -32,7 +29,6 @@
             </div>
         </div>
 
-        <!-- Card Evaluasi Masuk -->
         <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex items-start gap-4">
             <div class="p-3 bg-blue-50 rounded-lg text-[#004684]">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,7 +42,6 @@
             </div>
         </div>
 
-        <!-- Card Rata-rata Nilai -->
         <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex items-start gap-4">
             <div class="p-3 bg-blue-50 rounded-lg text-[#004684]">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -61,10 +56,8 @@
         </div>
     </div>
 
-    <!-- Grid Layout Kiri & Kanan -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
-        <!-- Peringkat Dosen -->
         <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
             <h3 class="text-lg font-bold text-black mb-6">Dosen dengan Rata-rata Tertinggi</h3>
             <div class="space-y-6">
@@ -90,7 +83,6 @@
             </div>
         </div>
 
-        <!-- Evaluasi Terbaru -->
         <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
             <h3 class="text-lg font-bold text-black mb-6">Evaluasi Terbaru</h3>
             <div class="space-y-6">

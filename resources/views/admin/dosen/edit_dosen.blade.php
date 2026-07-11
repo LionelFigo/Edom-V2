@@ -64,9 +64,13 @@
                 <div class="md:col-span-3">
                     <select name="prodi" id="prodi" class="w-full border border-slate-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-[#004684] bg-white" required>
                         <option value="" disabled>Pilih Prodi</option>
-                        <option value="TI" {{ old('prodi', $dosen->prodi) == 'TI' ? 'selected' : '' }}>Teknologi Informasi (TI)</option>
-                        <option value="TM" {{ old('prodi', $dosen->prodi) == 'TM' ? 'selected' : '' }}>Teknik Mesin (TM)</option>
-                        <option value="TE" {{ old('prodi', $dosen->prodi) == 'TE' ? 'selected' : '' }}>Teknik Elektronika (TE)</option>
+                        
+                        @foreach ($prodis as $p)
+                            <option value="{{ $p->nama_prodi }}" {{ old('prodi', $dosen->prodi) == $p->nama_prodi ? 'selected' : '' }}>
+                                {{ $p->nama_prodi }}
+                            </option>
+                        @endforeach
+                        
                     </select>
                 </div>
             </div>

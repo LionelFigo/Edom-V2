@@ -17,10 +17,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Route dengan proteksi Auth
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // 2. Route Admin
+    // Route Admin
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
@@ -33,7 +32,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('/{id}', [AdminDosenController::class, 'destroy'])->name('destroy');
         });
 
-        // CRUD Mata Kuliah
         Route::prefix('mata-kuliah')->name('mata_kuliah.')->group(function () {
             Route::get('/', [AdminMataKuliahController::class, 'index'])->name('index');
             Route::get('/tambah', [AdminMataKuliahController::class, 'create'])->name('create');
@@ -43,7 +41,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::delete('/{id}', [AdminMataKuliahController::class, 'destroy'])->name('destroy');
         });
 
-        // CRUD Pertanyaan Evaluasi
         Route::prefix('pertanyaan')->name('pertanyaan.')->group(function () {
             Route::get('/', [AdminPertanyaanController::class, 'index'])->name('index');
             Route::get('/tambah', [AdminPertanyaanController::class, 'create'])->name('create');
@@ -60,7 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         });
 
-    // 3. Route Dosen
+    // Route Dosen
     Route::middleware(['role:dosen'])->prefix('dosen')->group(function () {
         Route::get('/dashboard', [DosenController::class, 'index'])->name('dosen.dashboard');
         
@@ -72,7 +69,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('dosen/saran', [DosenSaranController::class, 'index'])->name('dosen.saran');
     });
 
-    // 4. Route Mahasiswa
+    // Route Mahasiswa
     Route::middleware(['role:mahasiswa'])->group(function () {
         Route::get('/dashboard', [MahasiswaController::class, 'index'])->name('dashboard');
         Route::get('/panduan', [MahasiswaController::class, 'panduan'])->name('panduan');
@@ -87,7 +84,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-    // 5. Route Profil
+    // Route Profil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

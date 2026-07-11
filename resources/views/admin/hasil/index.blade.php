@@ -39,7 +39,6 @@
                             <a href="{{ route('admin.hasil.show', $h->dosen_mk_id) }}" class="text-blue-500 hover:underline text-sm">Detail</a>
                         </td>
                     @else
-                        <!-- Tampilan Jika Belum Ada Data -->
                         <td class="py-3 px-4 text-sm text-center text-black">-</td>
                         <td class="py-3 px-4 text-sm text-center text-black">-</td>
                         <td class="py-3 px-4 text-center text-black">-</td>

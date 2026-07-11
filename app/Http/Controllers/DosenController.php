@@ -3,17 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; // Tambahkan ini
-use Illuminate\Support\Facades\Auth; // Tambahkan ini
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class DosenController extends Controller
 {
     public function index()
     {
-        // 1. Ambil data dosen berdasarkan user yang sedang login
         $dosen = DB::table('dosen')->where('user_id', Auth::id())->first();
 
-        // Jika data dosen tidak ditemukan (mencegah error jika akun user belum ditautkan ke profil dosen)
         if (!$dosen) {
             return view('dosen.dashboard', [
                 'dosen' => (object)['nama_lengkap' => Auth::user()->name],
@@ -27,34 +25,28 @@ class DosenController extends Controller
             ]);
         }
 
-        // 2. Cari ID relasi (Dosen & Mata Kuliah) milik dosen ini
         $dosenMkIds = DB::table('dosen_mata_kuliah')
             ->where('dosen_id', $dosen->id)
             ->pluck('id');
 
         $jumlahMk = $dosenMkIds->count();
 
-        // 3. Cari semua evaluasi yang masuk untuk dosen ini
         $evaluasiIds = DB::table('evaluasi')
             ->whereIn('dosen_mk_id', $dosenMkIds)
             ->pluck('id');
 
         $responMahasiswa = $evaluasiIds->count();
 
-        // Variabel default jika belum ada data (-)
         $rataRata = '-';
         $mkTerbaik = null;
         $aspekTerbaik = null;
         $aspekPerbaikan = null;
         $komentars = [];
 
-        // 4. Jika ada evaluasi yang masuk, lakukan perhitungan
         if ($responMahasiswa > 0) {
-            // Rata-rata keseluruhan
             $avg = DB::table('detail_evaluasi')->whereIn('evaluasi_id', $evaluasiIds)->avg('nilai');
             $rataRata = number_format($avg, 1);
 
-            // Mata Kuliah Terbaik
             $mkTerbaik = DB::table('detail_evaluasi')
                 ->join('evaluasi', 'detail_evaluasi.evaluasi_id', '=', 'evaluasi.id')
                 ->join('dosen_mata_kuliah', 'evaluasi.dosen_mk_id', '=', 'dosen_mata_kuliah.id')
@@ -65,7 +57,6 @@ class DosenController extends Controller
                 ->orderBy('avg_nilai', 'desc')
                 ->first();
 
-            // Aspek (Kategori) Terbaik & Perlu Diperbaiki
             $aspekScores = DB::table('detail_evaluasi')
                 ->join('pertanyaan', 'detail_evaluasi.pertanyaan_id', '=', 'pertanyaan.id')
                 ->join('kategori_pertanyaan', 'pertanyaan.kategori_id', '=', 'kategori_pertanyaan.id')
@@ -80,7 +71,6 @@ class DosenController extends Controller
                 $aspekPerbaikan = $aspekScores->last()->nama_kategori;
             }
 
-            // Komentar Terbaru (Maksimal 3)
             $komentars = DB::table('evaluasi')
                 ->join('dosen_mata_kuliah', 'evaluasi.dosen_mk_id', '=', 'dosen_mata_kuliah.id')
                 ->join('mata_kuliah', 'dosen_mata_kuliah.mk_id', '=', 'mata_kuliah.id')
@@ -93,7 +83,6 @@ class DosenController extends Controller
                 ->get();
         }
 
-        // 5. Kirim semua variabel ke view
         return view('dosen.dashboard', compact(
             'dosen', 'jumlahMk', 'responMahasiswa', 'rataRata', 
             'mkTerbaik', 'aspekTerbaik', 'aspekPerbaikan', 'komentars'

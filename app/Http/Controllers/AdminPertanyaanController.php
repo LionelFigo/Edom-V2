@@ -9,7 +9,6 @@ class AdminPertanyaanController extends Controller
 {
     public function index()
     {
-        // Join tabel pertanyaan dengan kategori_pertanyaan
         $pertanyaans = DB::table('pertanyaan')
             ->leftJoin('kategori_pertanyaan', 'pertanyaan.kategori_id', '=', 'kategori_pertanyaan.id')
             ->select('pertanyaan.*', 'kategori_pertanyaan.nama_kategori')
